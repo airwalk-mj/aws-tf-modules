@@ -1,6 +1,6 @@
 # Define the Public Subnets
 resource "aws_subnet" "public_subnet1" {
-  vpc_id = "$(aws_vpc.default.id)"
+  vpc_id = aws_vpc.default.id
   cidr_block = "$(var.public_subnet_1a_cidr)"
   availability_zone = "us-east-1a"
 
@@ -10,7 +10,7 @@ resource "aws_subnet" "public_subnet1" {
 }
 
 resource "aws_subnet" "public_subnet2" {
-  vpc_id = "$(aws_vpc.default.id)"
+  vpc_id = aws_vpc.default.id
   cidr_block = "$(var.public_subnet_1b_cidr)"
   availability_zone = "us-east-1b"
 
@@ -21,7 +21,7 @@ resource "aws_subnet" "public_subnet2" {
 
 # Define the Private Subnets
 resource "aws_subnet" "private_subnet1" {
-  vpc_id = "$(aws_vpc.default.id)"
+  vpc_id = aws_vpc.default.id
   cidr_block = "$(var.private_subnet_1a_cidr)"
   availability_zone = "us-east-1a"
 
@@ -31,7 +31,7 @@ resource "aws_subnet" "private_subnet1" {
 }
 
 resource "aws_subnet" "private_subnet2" {
-  vpc_id = "$(aws_vpc.default.id)"
+  vpc_id = aws_vpc.default.id
   cidr_block = "$(var.private_subnet_1b_cidr)"
   availability_zone = "us-east-1b"
 
@@ -42,7 +42,7 @@ resource "aws_subnet" "private_subnet2" {
 
 # Define the Database Subnets
 resource "aws_subnet" "private_database_subnet1" {
-  vpc_id = "$(aws_vpc.default.id)"
+  vpc_id = aws_vpc.default.id
   cidr_block = "$(var.private_subnet_2a_cidr)"
   availability_zone = "us-east-1a"
 
@@ -52,7 +52,7 @@ resource "aws_subnet" "private_database_subnet1" {
 }
 
 resource "aws_subnet" "private_database_subnet2" {
-  vpc_id = "$(aws_vpc.default.id)"
+  vpc_id = aws_vpc.default.id
   cidr_block = "$(var.private_subnet_2b_cidr)"
   availability_zone = "us-east-1b"
 
