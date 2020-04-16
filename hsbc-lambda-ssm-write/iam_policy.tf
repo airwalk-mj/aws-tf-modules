@@ -22,7 +22,7 @@ resource "aws_iam_policy" "lambda-ssm-write" {
       ],
       "Effect": "Allow",
       "Resource": "*"
-  },
+  }
 }
 EOF
 }
