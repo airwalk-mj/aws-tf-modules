@@ -50,6 +50,7 @@ resource "aws_iam_role_policy_attachment" "attach2" {
   policy_arn = aws_iam_policy.kms-policy.arn
 }
 
+
 resource "aws_iam_policy" "acm-policy" {
   name        = "lambda-acm-policy"
   description = "A test policy to allow lambda to access the Certificate Manager"
@@ -77,9 +78,37 @@ resource "aws_iam_role_policy_attachment" "attach2" {
 }
 
 
-
-# Attach CloudFormation policy to the IAM role
+# Enable X-Ray
+resource "aws_iam_policy" "xray-policy" {
+  name        = "lambda-xray-policy"
+  description = "A test policy to allow lambda to access the Xray"
+  depends_on  = [aws_iam_role.iam_for_lambda]
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": {
+      "Effect": "Allow",
+      "Action": [
+          "xray:PutTraceSegments",
+          "xray:PutTelemetryRecords"
+      ],
+      "Resource": [
+          "*"
+      ]
+  }
+}
+EOF
+}
+# Attach this policy to the IAM role
 resource "aws_iam_role_policy_attachment" "attach3" {
+  role       = aws_iam_role.iam_for_lambda.name
+  policy_arn = aws_iam_policy.xray-policy.arn
+}
+
+
+
+# Attach CloudFormation Managed policy to the IAM role
+resource "aws_iam_role_policy_attachment" "attach4" {
   role       = aws_iam_role.iam_for_lambda.name
   policy_arn = aws_iam_policy.kms-policy.arn
 }
