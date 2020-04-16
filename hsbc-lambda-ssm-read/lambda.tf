@@ -9,9 +9,9 @@ data "archive_file" "lambda_zip" {
     output_path   = "lambda_function.zip"
 }
 
-resource "aws_lambda_function" "test_lambda" {
+resource "aws_lambda_function" "ssm-get-secret" {
   filename         = "lambda_function.zip"
-  function_name    = "test_lambda"
+  function_name    = "ssm-get-secret"
   role             = aws_iam_role.lambda-ssm_read.arn
   handler          = "lambda.get_secret"
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
