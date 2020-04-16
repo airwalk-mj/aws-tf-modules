@@ -29,6 +29,16 @@ variable "private_subnet2_cidr" {
   default = "10.0.2.128/25"
 }
 
+variable "database_subnet1_cidr" {
+  description = "CIDR for Private Subnet 1"
+  default = "10.0.4.0/25"
+}
+
+variable "database_subnet2_cidr" {
+  description = "CIDR for Private Subnet 2"
+  default = "10.0.4.128/25"
+}
+
 #variable "key_path" {
 #  description = "SSH Public Key Path"
 #  default = "/Users/mark/.ssh/id_rsa.pub"    # Change this to a valid ssh key pair on your 

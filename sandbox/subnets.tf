@@ -47,7 +47,7 @@ resource "aws_subnet" "private_subnet2" {
 # Define the Database Subnets
 resource "aws_subnet" "private_database_subnet1" {
   vpc_id = aws_vpc.default.id
-  cidr_block = var.private_subnet1_cidr
+  cidr_block = var.database_subnet1_cidr
   availability_zone = "us-east-1a"
   depends_on = [aws_vpc.default]
 
@@ -58,7 +58,7 @@ resource "aws_subnet" "private_database_subnet1" {
 
 resource "aws_subnet" "private_database_subnet2" {
   vpc_id = aws_vpc.default.id
-  cidr_block = var.private_subnet2_cidr
+  cidr_block = var.database_subnet2_cidr
   availability_zone = "us-east-1b"
   depends_on = [aws_vpc.default]
 
