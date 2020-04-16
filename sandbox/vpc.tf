@@ -1,5 +1,5 @@
 # Define the VPC
-resource "aws_apc" "default" {
+resource "aws_vpc" "default" {
   cidr_clock = var.vpc_cidr
   enable_dns_hostnames = true
 
