@@ -5,7 +5,7 @@
 
 data "archive_file" "lambda_zip" {
     type          = "zip"
-    source_file   = "_source/python.py"
+    source_file   = "/_source/python.py"
     output_path   = "lambda_function.zip"
 }
 
@@ -13,9 +13,9 @@ resource "aws_lambda_function" "test_lambda" {
   filename         = "lambda_function.zip"
   function_name    = "test_lambda"
   role             = aws_iam_role.iam_for_lambda.arn
-  handler          = "index.handler"
+  handler          = "python.handler"
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
-  runtime          = "nodejs6.10"
+  runtime          = "python3.6"
 }
 
 resource "aws_iam_role" "iam_for_lambda" {
