@@ -1,6 +1,7 @@
-
 # If you need more information about configurations or implementing the sample code, visit the AWS docs:   
 # https://aws.amazon.com/developers/getting-started/python/
+
+import json
 import os
 import boto3
 import base64
@@ -8,7 +9,7 @@ from botocore.exceptions import ClientError
 
 def get_secret(secret_name, region_name):
 
-    secret_name = "example"
+    secret_name = "cmk_example"
     region_name = "us-east-1"
 
     print(secret_name)
@@ -58,7 +59,9 @@ def get_secret(secret_name, region_name):
         # Depending on whether the secret is a string or binary, one of these fields will be populated.
         if 'SecretString' in get_secret_value_response:
             secret = get_secret_value_response['SecretString']
-            return secret
+            #return secret
+            return json.loads(secret)
         else:
             decoded_binary_secret = base64.b64decode(get_secret_value_response['SecretBinary'])
-            return decoded_binary_secret
+            #return decoded_binary_secret
+            return json.loads(decoded_binary_secret)
