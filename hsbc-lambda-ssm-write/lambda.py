@@ -7,7 +7,7 @@ import boto3
 import base64
 from botocore.exceptions import ClientError
 
-def get_secret(secret_name, region_name):
+def put_secret(secret_name, region_name):
 
     secret_name = "cmk_example"
     region_name = "us-east-1"
