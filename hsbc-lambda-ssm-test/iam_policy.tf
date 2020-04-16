@@ -21,6 +21,6 @@ EOF
 
 # Attach this policy to the IAM role
 resource "aws_iam_role_policy_attachment" "attach" {
-  role       = aws_iam_role.iam_for_lambda
+  role       = aws_iam_role.iam_for_lambda.name
   policy_arn = aws_iam_policy.policy.arn
 }
