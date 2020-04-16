@@ -1,5 +1,5 @@
 # Simple AWS Lambda Terraform Example
-# requires 'python.py' in the _source directory
+# requires 'python.py' in the same directory
 # to test: run `terraform plan`
 # to deploy: run `terraform apply`
 
