@@ -1,7 +1,7 @@
 
 # Enable Logging
-resource "aws_iam_policy" "logging-policy" {
-  name        = "lambda-logging-policy"
+resource "aws_iam_policy" "logging-policy_read" {
+  name        = "lambda-logging-read-policy"
   description = "A test policy to allow lambda to access the Xray"
   depends_on  = [aws_iam_role.lambda-ssm_read]
   policy = <<EOF
