@@ -18,12 +18,6 @@ resource "aws_iam_policy" "ssm-policy" {
 }
 EOF
 }
-# Attach this policy to the IAM role
-resource "aws_iam_role_policy_attachment" "attach1" {
-  role       = aws_iam_role.iam_for_lambda.name
-  policy_arn = aws_iam_policy.ssm-policy.arn
-}
-
 
 resource "aws_iam_policy" "kms-policy" {
   name        = "lambda-kms-policy"
@@ -44,12 +38,6 @@ resource "aws_iam_policy" "kms-policy" {
 }
 EOF
 }
-# Attach this policy to the IAM role
-resource "aws_iam_role_policy_attachment" "attach2" {
-  role       = aws_iam_role.iam_for_lambda.name
-  policy_arn = aws_iam_policy.kms-policy.arn
-}
-
 
 resource "aws_iam_policy" "acm-policy" {
   name        = "lambda-acm-policy"
@@ -71,12 +59,6 @@ resource "aws_iam_policy" "acm-policy" {
 }
 EOF
 }
-# Attach this policy to the IAM role
-resource "aws_iam_role_policy_attachment" "attach2" {
-  role       = aws_iam_role.iam_for_lambda.name
-  policy_arn = aws_iam_policy.acm-policy.arn
-}
-
 
 # Enable X-Ray
 resource "aws_iam_policy" "xray-policy" {
@@ -99,16 +81,34 @@ resource "aws_iam_policy" "xray-policy" {
 }
 EOF
 }
+
+
+# Attach this policy to the IAM role
+resource "aws_iam_role_policy_attachment" "attach1" {
+  role       = aws_iam_role.iam_for_lambda.name
+  policy_arn = aws_iam_policy.ssm-policy.arn
+}
+
+# Attach this policy to the IAM role
+resource "aws_iam_role_policy_attachment" "attach2" {
+  role       = aws_iam_role.iam_for_lambda.name
+  policy_arn = aws_iam_policy.acm-policy.arn
+}
+
 # Attach this policy to the IAM role
 resource "aws_iam_role_policy_attachment" "attach3" {
+  role       = aws_iam_role.iam_for_lambda.name
+  policy_arn = aws_iam_policy.kms-policy.arn
+}
+
+# Attach this policy to the IAM role
+resource "aws_iam_role_policy_attachment" "attach4" {
   role       = aws_iam_role.iam_for_lambda.name
   policy_arn = aws_iam_policy.xray-policy.arn
 }
 
-
-
 # Attach CloudFormation Managed policy to the IAM role
-resource "aws_iam_role_policy_attachment" "attach4" {
+resource "aws_iam_role_policy_attachment" "attach5" {
   role       = aws_iam_role.iam_for_lambda.name
   policy_arn = aws_iam_policy.kms-policy.arn
 }
