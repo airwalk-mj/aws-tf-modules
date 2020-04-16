@@ -7,7 +7,7 @@ resource "aws_route_table" "public-rt" {
     gateway_id = aws_internet_gateway.gw.id
   }
 
-  tags {
+  tags = {
     name = "Public Subnet Route Table"
   }
 }
@@ -31,7 +31,7 @@ resource "aws_route_table" "private-rt" {
     gateway_id = aws_nat_gateway.nat_gw1.id
   }
 
-  tags {
+  tags = {
     name = "Private Subnet Route Table"
   }
 }
