@@ -93,7 +93,6 @@ resource "aws_iam_policy" "kms-policy" {
     "Effect": "Allow",
     "Action": [
       "kms:DescribeKey",
-      "kms:GenerateDataKey",
       "kms:Decrypt"
     ],
     "Resource": [
