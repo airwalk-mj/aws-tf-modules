@@ -1,16 +1,19 @@
+
 # If you need more information about configurations or implementing the sample code, visit the AWS docs:   
 # https://aws.amazon.com/developers/getting-started/python/
-
-import json
+import os
 import boto3
 import base64
 from botocore.exceptions import ClientError
 
 def get_secret(secret_name, region_name):
 
-    #secret_name = "example"
-    #region_name = "us-east-1"
+    secret_name = "example"
+    region_name = "us-east-1"
 
+    print(secret_name)
+    print(region_name)
+    
     # Create a Secrets Manager client
     session = boto3.session.Session()
     client = session.client(
@@ -23,9 +26,12 @@ def get_secret(secret_name, region_name):
     # We rethrow the exception by default.
 
     try:
+        print('trying...')
         get_secret_value_response = client.get_secret_value(
             SecretId=secret_name
         )
+        print('tried...')
+            
     except ClientError as e:
         if e.response['Error']['Code'] == 'DecryptionFailureException':
             # Secrets Manager can't decrypt the protected secret text using the provided KMS key.
@@ -52,7 +58,7 @@ def get_secret(secret_name, region_name):
         # Depending on whether the secret is a string or binary, one of these fields will be populated.
         if 'SecretString' in get_secret_value_response:
             secret = get_secret_value_response['SecretString']
+            return secret
         else:
-            secret = base64.b64decode(get_secret_value_response['SecretBinary'])
-
-        return json.loads(secret)  # returns the secret as dictionary
+            decoded_binary_secret = base64.b64decode(get_secret_value_response['SecretBinary'])
+            return decoded_binary_secret

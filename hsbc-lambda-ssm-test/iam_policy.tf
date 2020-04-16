@@ -49,3 +49,37 @@ resource "aws_iam_role_policy_attachment" "attach2" {
   role       = aws_iam_role.iam_for_lambda.name
   policy_arn = aws_iam_policy.kms-policy.arn
 }
+
+resource "aws_iam_policy" "acm-policy" {
+  name        = "lambda-acm-policy"
+  description = "A test policy to allow lambda to access the Certificate Manager"
+  depends_on  = [aws_iam_role.iam_for_lambda]
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "acm:DescribeCertificate",
+        "acm:GetCertificate"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:kms:us-east-1:544294979223:*"
+    }
+  ]
+}
+EOF
+}
+# Attach this policy to the IAM role
+resource "aws_iam_role_policy_attachment" "attach2" {
+  role       = aws_iam_role.iam_for_lambda.name
+  policy_arn = aws_iam_policy.acm-policy.arn
+}
+
+
+
+# Attach CloudFormation policy to the IAM role
+resource "aws_iam_role_policy_attachment" "attach3" {
+  role       = aws_iam_role.iam_for_lambda.name
+  policy_arn = aws_iam_policy.kms-policy.arn
+}
