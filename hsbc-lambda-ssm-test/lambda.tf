@@ -16,5 +16,5 @@ resource "aws_lambda_function" "test_lambda" {
   handler          = "lambda.handler"
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
   runtime          = "python3.6"
-  depends_on       = [aws_iam_role.iam_for_lambda, aws_secretsmanager_secret.example]
+  depends_on       = [aws_iam_role.iam_for_lambda]
 }
