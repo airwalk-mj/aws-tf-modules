@@ -2,7 +2,7 @@
 resource "aws_iam_policy" "policy" {
   name        = "test-policy"
   description = "A test policy"
-  dependancy  = [aws_iam_role.iam_for_lambda]
+  dependency  = [aws_iam_role.iam_for_lambda]
 
   policy = <<EOF
 {
