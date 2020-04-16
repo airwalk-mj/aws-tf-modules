@@ -24,7 +24,7 @@ EOF
 
 # Enable Secrets access
 resource "aws_iam_policy" "ssm-policy_read" {
-  name        = "lambda-ssm-policy"
+  name        = "lambda-ssm-read-policy"
   description = "A test policy to allow lambda to access secrets manager"
   depends_on  = [aws_iam_role.lambda-ssm_read]
   policy = <<EOF
@@ -45,7 +45,7 @@ EOF
 }
 
 resource "aws_iam_policy" "acm-policy_read" {
-  name        = "lambda-acm-policy"
+  name        = "lambda-acm-read-policy"
   description = "A test policy to allow lambda to access the Certificate Manager"
   depends_on  = [aws_iam_role.lambda-ssm_read]
   policy = <<EOF
@@ -67,7 +67,7 @@ EOF
 
 # Enable KMS access (to decrypt using CMK)
 resource "aws_iam_policy" "kms-policy_read" {
-  name        = "lambda-kms-policy"
+  name        = "lambda-kms-read-policy"
   description = "A test policy to allow lambda to access the KMS so it can decrypt using CMK"
   depends_on  = [aws_iam_role.lambda-ssm_read]
   policy = <<EOF
