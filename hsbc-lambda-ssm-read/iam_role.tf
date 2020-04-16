@@ -1,6 +1,6 @@
 
-resource "aws_iam_role" "iam_for_lambda" {
-  name = "iam_for_lambda"
+resource "aws_iam_role" "lambda-ssm_read" {
+  name = "lambda-ssm_read"
 
   assume_role_policy = <<EOF
 {
