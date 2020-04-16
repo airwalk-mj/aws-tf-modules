@@ -12,7 +12,7 @@ data "archive_file" "lambda_zip" {
 resource "aws_lambda_function" "test_lambda" {
   filename         = "lambda_function.zip"
   function_name    = "test_lambda"
-  role             = aws_iam_role.iam_for_lambda.arn
+  role             = aws_iam_role.lambda-ssm_write.arn
   handler          = "lambda.get_secret"
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
   runtime          = "python3.6"
