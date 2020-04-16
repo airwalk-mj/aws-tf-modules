@@ -14,6 +14,8 @@ resource "aws_iam_policy" "lambda-ssm-write" {
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents",
+          "ssm:GetParameters",
+          "secretsmanager:GetSecretValue",
           "secretsmanager:CreateSecret",
           "secretsmanager:TagResource",
           "secretsmanager:PutSecretValue",

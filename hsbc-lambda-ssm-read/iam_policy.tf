@@ -34,7 +34,7 @@ resource "aws_iam_policy" "ssm-policy_read" {
     {
       "Action": [
         "ssm:GetParameters",
-        "secretsmanager:GetSecretValue*"
+        "secretsmanager:GetSecretValue"
       ],
       "Effect": "Allow",
       "Resource": "*"
