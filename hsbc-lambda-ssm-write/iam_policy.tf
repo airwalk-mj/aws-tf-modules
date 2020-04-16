@@ -3,7 +3,7 @@
 resource "aws_iam_policy" "lambda-ssm-write" {
   name        = "lambda-logging-write-policy"
   description = "A test policy to allow lambda to access the Xray"
-  depends_on  = [aws_iam_role.lambda-ssm_write]
+  depends_on  = [aws_iam_role.lambda-ssm-write]
   policy = <<EOF
 {
   "Version": "2012-10-17",
