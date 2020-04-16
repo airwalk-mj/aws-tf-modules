@@ -1,14 +1,15 @@
 # If you need more information about configurations or implementing the sample code, visit the AWS docs:   
 # https://aws.amazon.com/developers/getting-started/python/
 
+import json
 import boto3
 import base64
 from botocore.exceptions import ClientError
 
-def get_secret(secret_name):
+def get_secret(secret_name, region_name):
 
     #secret_name = "example"
-    region_name = "us-east-1"
+    #region_name = "us-east-1"
 
     # Create a Secrets Manager client
     session = boto3.session.Session()
@@ -52,10 +53,6 @@ def get_secret(secret_name):
         if 'SecretString' in get_secret_value_response:
             secret = get_secret_value_response['SecretString']
         else:
-            decoded_binary_secret = base64.b64decode(get_secret_value_response['SecretBinary'])
-            
-    # Your code goes here. 
+            secret = base64.b64decode(get_secret_value_response['SecretBinary'])
 
-    return result['Parameter']['Value']
-
-my_secret = get_secret('example')
+    return json.loads(secret)  # returns the secret as dictionary
