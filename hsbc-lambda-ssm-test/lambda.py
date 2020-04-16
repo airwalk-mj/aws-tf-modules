@@ -56,6 +56,6 @@ def get_secret(secret_name):
             
     # Your code goes here. 
 
-	return result['Parameter']['Value']
+    return result['Parameter']['Value']
 
 my_secret = get_secret('example')
