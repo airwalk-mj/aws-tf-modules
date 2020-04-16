@@ -2,8 +2,7 @@
 resource "aws_iam_policy" "policy" {
   name        = "test-policy"
   description = "A test policy"
-  dependency  = [aws_iam_role.iam_for_lambda]
-
+  depends_on  = [aws_iam_role.iam_for_lambda]
   policy = <<EOF
 {
   "Version": "2012-10-17",
