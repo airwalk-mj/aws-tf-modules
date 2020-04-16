@@ -9,7 +9,7 @@ resource "aws_iam_policy" "ssm-policy" {
   "Statement": [
     {
       "Action": [
-        "ssm:GetParameter*"
+        "secretsmanager:GetSecretValue"
       ],
       "Effect": "Allow",
       "Resource": "arn:aws:ssm:us-east-1:544294979223:parameter/*"
