@@ -33,10 +33,9 @@ resource "aws_iam_policy" "ssm-policy_write" {
   "Statement": [
     {
       "Action": [
-        "ssm:GetParameters",
         "secretsmanager:CreateSecret",
-        "secretsmanager:PutSecretValue",
-        "secretsmanager:PutResourcePolicy"
+        "secretsmanager:TagResource",
+        "secretsmanager:PutSecretValue"
       ],
       "Effect": "Allow",
       "Resource": "*"
@@ -57,8 +56,8 @@ resource "aws_iam_policy" "kms-policy_write" {
   "Statement": {
     "Effect": "Allow",
     "Action": [
-      "kms:DescribeKey",
-      "kms:Encrypt"
+      "kms:GenerateDataKey",
+      "kms:Decrypt"
     ],
     "Resource": [
       "arn:aws:kms:us-east-1:544294979223:key/20a7ba6d-7b62-460d-a9ec-6aba8c9cde58"

@@ -11,9 +11,6 @@ def get_secret(secret_name, region_name):
 
     secret_name = "cmk_example"
     region_name = "us-east-1"
-
-    print(secret_name)
-    print(region_name)
     
     # Create a Secrets Manager client
     session = boto3.session.Session()
@@ -22,16 +19,10 @@ def get_secret(secret_name, region_name):
         region_name=region_name
     )
 
-    # In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
-    # See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
-    # We rethrow the exception by default.
-
     try:
-        print('trying...')
         get_secret_value_response = client.get_secret_value(
             SecretId=secret_name
         )
-        print('tried...')
             
     except ClientError as e:
         if e.response['Error']['Code'] == 'DecryptionFailureException':

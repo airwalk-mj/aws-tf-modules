@@ -11,9 +11,6 @@ def put_secret(secret_name, region_name):
 
     secret_name = "cmk_example"
     region_name = "us-east-1"
-
-    print(secret_name)
-    print(region_name)
     
     # Create a Secrets Manager client
     session = boto3.session.Session()
@@ -22,16 +19,10 @@ def put_secret(secret_name, region_name):
         region_name=region_name
     )
 
-    # In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
-    # See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
-    # We rethrow the exception by default.
-
     try:
-        print('trying...')
         get_secret_value_response = client.get_secret_value(
             SecretId=secret_name
         )
-        print('tried...')
             
     except ClientError as e:
         if e.response['Error']['Code'] == 'DecryptionFailureException':
@@ -58,10 +49,6 @@ def put_secret(secret_name, region_name):
         # Decrypts secret using the associated KMS CMK.
         # Depending on whether the secret is a string or binary, one of these fields will be populated.
         if 'SecretString' in get_secret_value_response:
-            secret = get_secret_value_response['SecretString']
-            #return secret
-            return json.loads(secret)
+            return 'Secret exsits already'
         else:
-            decoded_binary_secret = base64.b64decode(get_secret_value_response['SecretBinary'])
-            #return decoded_binary_secret
-            return json.loads(decoded_binary_secret)
+            return get_secret_value_response
