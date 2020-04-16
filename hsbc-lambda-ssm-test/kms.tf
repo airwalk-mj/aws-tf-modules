@@ -5,6 +5,6 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_kms_alias" "test" {
-  name          = "mule/policy/secret_key"
-  target_key_id = "${aws_kms_key.test.key_id}"
+  name          = "alias/mule/policy/secret_key"
+  target_key_id = aws_kms_key.test.key_id
 }
