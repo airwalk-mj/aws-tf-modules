@@ -1,5 +1,5 @@
 
-resource "aws_iam_role" "lambda-ssm_write" {
+resource "aws_iam_role" "lambda-ssm-write" {
   name = "lambda-ssm_write"
 
   assume_role_policy = <<EOF
