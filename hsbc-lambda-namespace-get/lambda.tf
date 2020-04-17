@@ -10,7 +10,7 @@ data "archive_file" "lambda_zip" {
 }
 
 resource "aws_lambda_function" "lambda-k8s-namespace-get-meta" {
-  filename         = "lambda_function.zip"
+  filename         = data.archive_file.lambda_zip.output_path
   function_name    = "lambda-k8s-namespace-get-meta"
   role             = aws_iam_role.lambda-namespace-get-meta.arn
   handler          = "main.handler"
