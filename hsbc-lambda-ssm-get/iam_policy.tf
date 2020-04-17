@@ -1,9 +1,8 @@
 
-# Enable Logging
-resource "aws_iam_policy" "logging-policy-get" {
-  name        = "lambda-logging-get-policy"
-  description = "A test policy to allow lambda to access the Xray"
-  depends_on  = [aws_iam_role.lambda-ssm-get]
+resource "aws_iam_policy" "lambda-ssm-get" {
+  name        = "lambda-ssm-get-policy"
+  description = "A test policy to allow lambda to rerieve encrypted secrets from Secrets Manager"
+  depends_on  = [aws_iam_role.lambda-ssm-put]
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -13,7 +12,11 @@ resource "aws_iam_policy" "logging-policy-get" {
           "xray:PutTelemetryRecords",
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
-          "logs:PutLogEvents"
+          "logs:PutLogEvents",
+          "ssm:GetParameters",
+          "secretsmanager:GetSecretValue",
+          "kms:DescribeKey",
+          "kms:Decrypt"
       ],
       "Effect": "Allow",
       "Resource": "*"
@@ -21,28 +24,13 @@ resource "aws_iam_policy" "logging-policy-get" {
 }
 EOF
 }
+# Attach this policy to the IAM role
+resource "aws_iam_role_policy_attachment" "attach1" {
+  role       = aws_iam_role.lambda-ssm-get.name
+  policy_arn = aws_iam_policy.lambda-ssm-get.arn
+}
 
-# Enable Secrets access
-resource "aws_iam_policy" "ssm-policy-get" {
-  name        = "lambda-ssm-read-policy"
-  description = "A test policy to allow lambda to access secrets manager"
-  depends_on  = [aws_iam_role.lambda-ssm-get]
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "ssm:GetParameters",
-        "secretsmanager:GetSecretValue"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
-}
-EOF
-}
+
 
 resource "aws_iam_policy" "acm-policy-get" {
   name        = "lambda-acm-read-policy"
@@ -63,51 +51,4 @@ resource "aws_iam_policy" "acm-policy-get" {
   ]
 }
 EOF
-}
-
-# Enable KMS access (to decrypt using CMK)
-resource "aws_iam_policy" "kms-policy-get" {
-  name        = "lambda-kms-read-policy"
-  description = "A test policy to allow lambda to access the KMS so it can decrypt using CMK"
-  depends_on  = [aws_iam_role.lambda-ssm-get]
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": {
-    "Effect": "Allow",
-    "Action": [
-      "kms:DescribeKey",
-      "kms:Decrypt"
-    ],
-    "Resource": [
-      "arn:aws:kms:us-east-1:544294979223:key/20a7ba6d-7b62-460d-a9ec-6aba8c9cde58"
-    ]
-  }
-}
-EOF
-}
-
-
-# Attach this policy to the IAM role
-resource "aws_iam_role_policy_attachment" "attach1" {
-  role       = aws_iam_role.lambda-ssm-get.name
-  policy_arn = aws_iam_policy.logging-policy-get.arn
-}
-
-# Attach this policy to the IAM role
-resource "aws_iam_role_policy_attachment" "attach2" {
-  role       = aws_iam_role.lambda-ssm-get.name
-  policy_arn = aws_iam_policy.ssm-policy-get.arn
-}
-
-# Attach this policy to the IAM role
-#resource "aws_iam_role_policy_attachment" "attach3" {
-#  role       = aws_iam_role.lambda-ssm-get.name
-#  policy_arn = aws_iam_policy.acm-policy-get.arn
-#}
-
-# Attach this policy to the IAM role
-resource "aws_iam_role_policy_attachment" "attach4" {
-  role       = aws_iam_role.lambda-ssm-get.name
-  policy_arn = aws_iam_policy.kms-policy-get.arn
 }

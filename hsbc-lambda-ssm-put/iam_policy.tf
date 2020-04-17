@@ -1,7 +1,6 @@
 
-# Enable Logging
 resource "aws_iam_policy" "lambda-ssm-put" {
-  name        = "lambda-logging-put-policy"
+  name        = "lambda-ssm-put-policy"
   description = "A test policy to allow lambda to access the Xray"
   depends_on  = [aws_iam_role.lambda-ssm-put]
   policy = <<EOF
