@@ -9,7 +9,7 @@ resource "aws_iam_policy" "lambda-namespace-get-meta" {
   "Statement": {
       "Action": [
         "sts:GetCallerIdentity",
-        "eks:DescribeCluster",
+        "eks:DescribeCluster"
       ],
       "Effect": "Allow",
       "Resource": "*"
