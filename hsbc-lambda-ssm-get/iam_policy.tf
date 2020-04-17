@@ -2,7 +2,7 @@
 resource "aws_iam_policy" "lambda-ssm-get" {
   name        = "lambda-ssm-get-policy"
   description = "A test policy to allow lambda to rerieve encrypted secrets from Secrets Manager"
-  depends_on  = [aws_iam_role.lambda-ssm-put]
+  depends_on  = [aws_iam_role.lambda-ssm-get]
   policy = <<EOF
 {
   "Version": "2012-10-17",
