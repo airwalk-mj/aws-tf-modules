@@ -9,6 +9,7 @@ def put_secret(secret_name, region_name):
     secret_name = "cmk_newnewnew_example"
     secret_value = "supersecret"
     region_name = "us-east-1"
+    key_id = '20a7ba6d-7b62-460d-a9ec-6aba8c9cde58'
     
     # Create a Secrets Manager client
     session = boto3.session.Session()
@@ -44,15 +45,15 @@ def put_secret(secret_name, region_name):
             # We can't find the resource that you asked for.
             # Deal with the exception here, and/or rethrow at your discretion.
             
-            response = client.create_secret(
+            client.create_secret(
                 Name=secret_name,
                 Description='string',
-                KmsKeyId='20a7ba6d-7b62-460d-a9ec-6aba8c9cde58',
+                KmsKeyId=key_id,
                 SecretString=secret_value,
                 Tags=[
                     {
-                        'Key': 'string',
-                        'Value': 'string'
+                        'Key': 'xft-id',
+                        'Value': 'ABCD'
                     },
                 ]
             )
