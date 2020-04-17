@@ -1,9 +1,9 @@
 
 # Enable Logging
-resource "aws_iam_policy" "lambda-ssm-write" {
-  name        = "lambda-logging-write-policy"
+resource "aws_iam_policy" "lambda-ssm-put" {
+  name        = "lambda-logging-put-policy"
   description = "A test policy to allow lambda to access the Xray"
-  depends_on  = [aws_iam_role.lambda-ssm-write]
+  depends_on  = [aws_iam_role.lambda-ssm-put]
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -31,6 +31,6 @@ EOF
 
 # Attach this policy to the IAM role
 resource "aws_iam_role_policy_attachment" "attach1" {
-  role       = aws_iam_role.lambda-ssm-write.name
-  policy_arn = aws_iam_policy.lambda-ssm-write.arn
+  role       = aws_iam_role.lambda-ssm-put.name
+  policy_arn = aws_iam_policy.lambda-ssm-put.arn
 }

@@ -1,9 +1,9 @@
 
 # Enable Logging
-resource "aws_iam_policy" "logging-policy_read" {
-  name        = "lambda-logging-read-policy"
+resource "aws_iam_policy" "logging-policy-get" {
+  name        = "lambda-logging-get-policy"
   description = "A test policy to allow lambda to access the Xray"
-  depends_on  = [aws_iam_role.lambda-ssm_read]
+  depends_on  = [aws_iam_role.lambda-ssm-get]
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -23,10 +23,10 @@ EOF
 }
 
 # Enable Secrets access
-resource "aws_iam_policy" "ssm-policy_read" {
+resource "aws_iam_policy" "ssm-policy-get" {
   name        = "lambda-ssm-read-policy"
   description = "A test policy to allow lambda to access secrets manager"
-  depends_on  = [aws_iam_role.lambda-ssm_read]
+  depends_on  = [aws_iam_role.lambda-ssm-get]
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -44,10 +44,10 @@ resource "aws_iam_policy" "ssm-policy_read" {
 EOF
 }
 
-resource "aws_iam_policy" "acm-policy_read" {
+resource "aws_iam_policy" "acm-policy-get" {
   name        = "lambda-acm-read-policy"
   description = "A test policy to allow lambda to access the Certificate Manager"
-  depends_on  = [aws_iam_role.lambda-ssm_read]
+  depends_on  = [aws_iam_role.lambda-ssm-get]
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -66,10 +66,10 @@ EOF
 }
 
 # Enable KMS access (to decrypt using CMK)
-resource "aws_iam_policy" "kms-policy_read" {
+resource "aws_iam_policy" "kms-policy-get" {
   name        = "lambda-kms-read-policy"
   description = "A test policy to allow lambda to access the KMS so it can decrypt using CMK"
-  depends_on  = [aws_iam_role.lambda-ssm_read]
+  depends_on  = [aws_iam_role.lambda-ssm-get]
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -90,24 +90,24 @@ EOF
 
 # Attach this policy to the IAM role
 resource "aws_iam_role_policy_attachment" "attach1" {
-  role       = aws_iam_role.lambda-ssm_read.name
-  policy_arn = aws_iam_policy.logging-policy_read.arn
+  role       = aws_iam_role.lambda-ssm-get.name
+  policy_arn = aws_iam_policy.logging-policy-get.arn
 }
 
 # Attach this policy to the IAM role
 resource "aws_iam_role_policy_attachment" "attach2" {
-  role       = aws_iam_role.lambda-ssm_read.name
-  policy_arn = aws_iam_policy.ssm-policy_read.arn
+  role       = aws_iam_role.lambda-ssm-get.name
+  policy_arn = aws_iam_policy.ssm-policy-get.arn
 }
 
 # Attach this policy to the IAM role
-resource "aws_iam_role_policy_attachment" "attach3" {
-  role       = aws_iam_role.lambda-ssm_read.name
-  policy_arn = aws_iam_policy.acm-policy_read.arn
-}
+#resource "aws_iam_role_policy_attachment" "attach3" {
+#  role       = aws_iam_role.lambda-ssm-get.name
+#  policy_arn = aws_iam_policy.acm-policy-get.arn
+#}
 
 # Attach this policy to the IAM role
 resource "aws_iam_role_policy_attachment" "attach4" {
-  role       = aws_iam_role.lambda-ssm_read.name
-  policy_arn = aws_iam_policy.kms-policy_read.arn
+  role       = aws_iam_role.lambda-ssm-get.name
+  policy_arn = aws_iam_policy.kms-policy-get.arn
 }
