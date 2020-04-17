@@ -91,7 +91,7 @@ EOF
 # Attach this policy to the IAM role
 resource "aws_iam_role_policy_attachment" "attach1" {
   role       = aws_iam_role.lambda-ssm_read.name
-  policy_arn = aws_iam_policy.logging-policy.arn
+  policy_arn = aws_iam_policy.logging-policy_read.arn
 }
 
 # Attach this policy to the IAM role
