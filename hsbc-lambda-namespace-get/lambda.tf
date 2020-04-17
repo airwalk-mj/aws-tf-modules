@@ -5,7 +5,7 @@
 
 data "archive_file" "lambda_zip" {
     type          = "zip"
-    source_file   = "lambda.py"
+    source_file   = "main.py"
     output_path   = "lambda_function.zip"
 }
 
