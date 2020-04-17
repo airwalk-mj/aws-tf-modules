@@ -10,6 +10,7 @@ def put_secret(secret_name, region_name):
     secret_value = "supersecret"
     region_name = "us-east-1"
     key_id = '20a7ba6d-7b62-460d-a9ec-6aba8c9cde58'
+    xft_id = 'ABCD'
     
     # Create a Secrets Manager client
     session = boto3.session.Session()
@@ -53,7 +54,7 @@ def put_secret(secret_name, region_name):
                 Tags=[
                     {
                         'Key': 'xft-id',
-                        'Value': 'ABCD'
+                        'Value': xft_id
                     },
                 ]
             )
