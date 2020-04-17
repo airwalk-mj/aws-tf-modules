@@ -13,7 +13,7 @@ resource "aws_lambda_function" "lambda-k8s-namespace-get-meta" {
   filename         = "lambda_function.zip"
   function_name    = "lambda-k8s-namespace-get-meta"
   role             = aws_iam_role.lambda-namespace-get-meta.arn
-  handler          = "lambda.get_secret"
+  handler          = "main.handler"
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
   runtime          = "python3.6"
   depends_on       = [aws_iam_role.lambda-namespace-get-meta]
