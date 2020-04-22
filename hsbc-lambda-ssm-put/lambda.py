@@ -16,7 +16,7 @@ def put_secret(secret_name, region_name):
     session = boto3.session.Session()
     client = session.client(
         service_name='secretsmanager',
-        region_name=region_name
+        region_name=os.environ['AWS_REGION']
     )
 
     try:
@@ -40,7 +40,6 @@ def put_secret(secret_name, region_name):
         elif e.response['Error']['Code'] == 'InvalidRequestException':
             # You provided a parameter value that is not valid for the current state of the resource.
             # Deal with the exception here, and/or rethrow at your discretion.
-            
             raise e
         elif e.response['Error']['Code'] == 'ResourceNotFoundException':
             # We can't find the resource that you asked for.

@@ -29,26 +29,3 @@ resource "aws_iam_role_policy_attachment" "attach1" {
   role       = aws_iam_role.lambda-ssm-get.name
   policy_arn = aws_iam_policy.lambda-ssm-get.arn
 }
-
-
-
-resource "aws_iam_policy" "acm-policy-get" {
-  name        = "lambda-acm-read-policy"
-  description = "A test policy to allow lambda to access the Certificate Manager"
-  depends_on  = [aws_iam_role.lambda-ssm-get]
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "acm:DescribeCertificate",
-        "acm:GetCertificate"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
-}
-EOF
-}
