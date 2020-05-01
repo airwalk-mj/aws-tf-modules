@@ -20,9 +20,7 @@ def put_secret(secret_name, region_name):
     )
 
     try:
-        get_secret_value_response = client.get_secret_value(
-            SecretId=secret_name
-        )
+        get_secret_value_response = client.get_secret_value(SecretId=secret_name)
             
     except ClientError as e:
         if e.response['Error']['Code'] == 'DecryptionFailureException':
