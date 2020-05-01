@@ -1,5 +1,5 @@
 
-resource "aws_iam_role" "ec2" {
+resource "aws_iam_role" "dtme-assume-shp-iam-role" {
   name = "dtme-assume-shp-iam-role"
   assume_role_policy = <<EOF
 {
