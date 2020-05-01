@@ -5,7 +5,7 @@ resource "aws_iam_role" "dtme-assume-shp-iam-role" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Sid": "dtme-assume-shp-iam-role"
+    "Sid": "dtme-assume-shp-iam-role",
     "Effect": "Allow",
     "Action": "sts:AssumeRole",
   }
